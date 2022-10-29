@@ -1,6 +1,8 @@
 # Odoo Module Builder
 It is an open source application to generate odoo code, simplifying the development process.
 
+![Alt text](https://github.com/falconsoft3d/pyerp/blob/master/marketing/pyerp-m.png?raw=true "Ynext")
+
 # Link
 https://falconsoft3d.github.io/odoo-module-builder/
 
