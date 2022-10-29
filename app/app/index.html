@@ -22,7 +22,7 @@
                       Name Module
                     </label>
                     <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                    id="grid-first-name" type="text" value="demo">
+                    id="name" type="text" value="demo">
                     <p class="text-gray-600 text-xs italic">Name of the module.</p>
                   </div>
 
@@ -31,7 +31,8 @@
                       Version
                     </label>
                     <div class="relative">
-                      <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                      <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                      id="selectVersion">
                         <option>16.0</option>
                         <option>15.0</option>
                       </select>
@@ -51,13 +52,13 @@
                       Fields
                     </label>
                     <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                            id="grid-password" type="text" value="name,description">
+                            id="fields" type="text" value="name,description">
                     <p class="text-gray-600 text-xs italic">fields</p>
                   </div>
                 </div>
                 
                 <div>
-                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded inline-flex items-center" id="btnCreate">
                         <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
                         <span>Create Module</span>
                     </button>

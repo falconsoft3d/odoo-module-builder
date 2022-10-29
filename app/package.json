@@ -21,6 +21,7 @@
     "electron": "^21.2.0"
   },
   "dependencies": {
+    "fs-extra": "^10.1.0",
     "marked": "^4.1.1"
   }
 }
