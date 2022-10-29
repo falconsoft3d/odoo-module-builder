@@ -6,9 +6,11 @@ class omb_demo(models.Model):
     _description = 'omb_demo'
     _order = 'id desc'
 
-    name = fields.Char('Reference', required=True, default='New')
-    partner_id = fields.Many2one('res.partner', 'Patient', tracking=True)
-    user_id = fields.Many2one('res.users', string='Responsible', tracking=True, default=lambda self: self.env.user)
+    name = fields.Char(string="Name")
+    code = fields.Char(string="code")
+    description = fields.Text(string="description")
+    amount = fields.Float(string="amount")
+    
 
     @api.model_create_multi
     def create(self, vals_list):

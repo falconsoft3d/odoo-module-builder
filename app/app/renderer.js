@@ -5,8 +5,17 @@ let txtFields = document.querySelector('#fields');
 let selectVersion = document.querySelector('#selectVersion');
 let btnCreate = document.querySelector('#btnCreate');
 
+fversion = ''
+
 btnCreate.addEventListener('click', () => {
     if (!(txtName.value == '' || txtFields.value == '' || selectVersion.value == '')) {
+        console.log(selectVersion.value)
+        if ( selectVersion.value == '15.0'  ) {
+            fversion = '15.0.1.0.0'
+        } else {
+            fversion = '16.0.1.0.0'
+        }
+
         let name = txtName.value;
         let omb_name = 'omb_' + txtName.value;
         let omb_p_name = 'omb.' + txtName.value;
@@ -40,7 +49,7 @@ manifest = `####################################################################
 
 {
     'name': '${name} OMB',
-    'version': '16.0.1.0.0',
+    'version': '${fversion}',
     'author': 'OMB',
     'maintainer': 'OMB',
     'website': 'https://falconsoft3d.github.io/odoo-module-builder/',
@@ -50,26 +59,52 @@ manifest = `####################################################################
     'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
-        'security/sis_base_security.xml',
         'data/ir_sequence.xml',
-        'views/res_partner_view.xml',
+        'views/${omb_name}_views.xml',
     ],
 }`
 
 
 ir_sequence = `<?xml version="1.0" encoding="utf-8"?>
     <odoo noupdate="1">
-    <record id="seq_partner_out" model="ir.sequence">
-        <field name="name">Partner Out</field>
-        <field name="code">partner.out</field>
-        <field name="prefix">POU/%(range_year)s/</field>
+    <record id="seq_${omb_name}" model="ir.sequence">
+        <field name="name">${omb_name}</field>
+        <field name="code">${omb_p_name}</field>
+        <field name="prefix">OBM/%(range_year)s/</field>
         <field name="padding">7</field>
         <field name="company_id" eval="False"/>
     </record>
 </odoo>`
 
 security = `id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_medical_consultation,medical.consultation,model_medical_consultation,,1,1,1,1`
+access_${omb_name},${omb_p_name},model_${omb_name},,1,1,1,1`
+
+fields_model = ''
+fields_view = ''
+
+fields.forEach(function(field) {
+    if (field != 'name' &&  field != '') {
+
+        type_field = 'Char'
+
+        if (field == 'age') { 
+            type_field = 'Integer'
+        }
+        else if (field == 'description') { 
+            type_field = 'Text'
+        }
+        else if (field == 'amount') { 
+            type_field = 'Float'
+        }
+
+        console.log(field);
+        console.log(type_field);
+
+        fields_model += `${field} = fields.${type_field}(string="${field}")\n    `
+        fields_view += `   `
+        fields_view += `<field name="${field}"/>\n                            `
+    }
+});
 
 modelInfo = `# -*- coding: utf-8 -*-
 from odoo import api, fields, models, _, tools
@@ -79,9 +114,8 @@ class ${omb_name}(models.Model):
     _description = '${omb_name}'
     _order = 'id desc'
 
-    name = fields.Char('Reference', required=True, default='New')
-    partner_id = fields.Many2one('res.partner', 'Patient', tracking=True)
-    user_id = fields.Many2one('res.users', string='Responsible', tracking=True, default=lambda self: self.env.user)
+    name = fields.Char(string="Name")
+    ${fields_model}
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -91,12 +125,11 @@ class ${omb_name}(models.Model):
                 vals['name'] = seq_obj.next_by_code('${omb_p_name}') or 'New'
         return super().create(vals_list)`
 
-ViewInfo = `
-<?xml version="1.0" encoding="UTF-8"?>
+ViewInfo = `<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="view_form_partner_sis_medical_imagen" model="ir.ui.view">
-        <field name="name">view.form.sis.medical.imagen</field>
-        <field name="model">medical.image</field>
+    <record id="view_form_${omb_name}" model="ir.ui.view">
+        <field name="name">${omb_p_name}</field>
+        <field name="model">${omb_p_name}</field>
         <field name="arch" type="xml">
             <form string="Medical Image">
                 <header>
@@ -104,64 +137,52 @@ ViewInfo = `
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="code" readonly="1"/>
+                            <field name="name" readonly="1"/>
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id" options='{"no_create": 1, "no_open": 1}' required="1" domain="[('patient_ok', '=', 'True')]"/>
-                            <field name="treatment_id" options='{"no_create": 1, "no_open": 1}'/>
-                        </group>
-                        <group>
-                            <field name="name"/>
-                            <field name="user_id" readonly="1"/>
-                            <field name="create_date" readonly="1"/>
+                            ${fields_view}
                         </group>
                     </group>
-                    <notebook>
-                        <page string="Attachments">
-                                <field name="list_attachment_ids" nolabel="1">
-                                    <tree editable="bottom">
-                                        <field name="file_name" invisible="1"/>
-                                        <field name="file" filename="file_name"/>
-                                        <field name="date" readonly="1"/>
-                                        <field name="user_id" readonly="1" sum="T"/>
-                                    </tree>
-                                </field>
-                        </page>
-                    </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
             </form>
         </field>
     </record>
 
-    <record id="view_tree_sis_medical_imagen" model="ir.ui.view">
-        <field name="name">view.tree.sis.medical.imagen</field>
-        <field name="model">medical.image</field>
+    <record id="view_tree_${omb_name}" model="ir.ui.view">
+        <field name="name">view.tree.${omb_p_name}</field>
+        <field name="model">${omb_p_name}</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="code"/>
-                <field name="name"/>
-                <field name="partner_id"/>
-                <field name="treatment_id"/>
-            </tree>
+                    <tree>
+                            <field name="name"/>
+                            ${fields_view}
+                    </tree>
         </field>
     </record>
 
-    <record id="action_sis_medical_image" model="ir.actions.act_window">
-        <field name="name">Medical Images</field>
-        <field name="res_model">medical.image</field>
+    <record id="action_${omb_name}" model="ir.actions.act_window">
+        <field name="name">${omb_name}</field>
+        <field name="res_model">${omb_p_name}</field>
         <field name="view_mode">tree,form</field>
     </record>
+
+    <menuitem id="root_menu_${omb_name}"
+            name="${name}"
+            web_icon="board,static/description/icon.png"
+            sequence="10"
+        />
+
+    <menuitem id="root_menu_${omb_name}_son"
+        name="${name}"
+        parent="root_menu_${omb_name}"
+        action="action_${omb_name}"
+        sequence="10"
+    />
 
 
 </odoo>
 `;
-
         fse.outputFileSync(omb_name+'/__manifest__.py', manifest)
         fse.outputFileSync(omb_name+'/__init__.py', 'from . import models')
         fse.outputFileSync(omb_name+'/models/__init__.py', 'from . import '+omb_name)
@@ -178,17 +199,3 @@ ViewInfo = `
         
     }
 });
-
-
-// const marked = require('marked');
-// const markdownView = document.querySelector('#markdown');
-// const htmlView = document.querySelector('#html');
-
-// const renderToMarkdown = (markdown) => { 
-//     htmlView.innerHTML = marked.parse(markdown);
-// }
-
-// markdownView.addEventListener('keyup', e => {
-//    const curentContent = e.target.value;
-//    renderToMarkdown(curentContent);
-// });

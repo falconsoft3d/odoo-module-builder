@@ -12,10 +12,9 @@
         <section class="content m-2">
             <div class="lg:text-center mb-4">
                 <p class="mt-2 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-3xl">OMB - Odoo Module Builder V.1.0</p>
-                <p class="max-w-2xl text-l text-gray-500 lg:mx-auto">By Marlon Falcón Hernandez | mfalconsoft@gmail.com</p>
+                <p class="max-w-2xl text-l text-gray-500 lg:mx-auto">By <b>Marlon Falcón Hernandez</b> | mfalconsoft@gmail.com</p>
+                <a class="max-w-2xl text-l text-gray-500 lg:mx-auto">falconsoft3d.github.io/odoo-module-builder</a>
               </div>
-
-          
 
             <form class="w-full max-w-lg">    
                 <div class="flex flex-wrap -mx-3 mb-6">                  
@@ -25,7 +24,7 @@
                     </label>
                     <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                     id="name" type="text" value="demo">
-                    <p class="text-gray-600 text-xs italic">Name of the module.</p>
+                    <p class="text-gray-600 text-xs italic">Name of the model. Your model look like: <b>omb.demo</b></p>
                   </div>
 
                   
@@ -38,11 +37,11 @@
                       <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                       id="selectVersion">
                         <option>16.0</option>
-                        <option>15.0</option>
                       </select>
                       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                       </div>
+                      <p class="text-gray-600 text-xs italic mt-2">Please select the <b>Odoo</b> version</p>
                     </div>
                   </div>
 
@@ -56,8 +55,8 @@
                       Fields
                     </label>
                     <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                            id="fields" type="text" value="name,description">
-                    <p class="text-gray-600 text-xs italic">fields</p>
+                            id="fields" type="text" value="name,code,description,amount">
+                    <p class="text-gray-600 text-xs italic">fields separate by , and not use space</p>
                   </div>
                 </div>
                 

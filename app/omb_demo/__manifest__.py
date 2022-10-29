@@ -31,8 +31,7 @@
     'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
-        'security/sis_base_security.xml',
         'data/ir_sequence.xml',
-        'views/res_partner_view.xml',
+        'views/omb_demo_views.xml',
     ],
 }

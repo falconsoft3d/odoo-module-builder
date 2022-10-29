@@ -1,9 +1,8 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="view_form_partner_sis_medical_imagen" model="ir.ui.view">
-        <field name="name">view.form.sis.medical.imagen</field>
-        <field name="model">medical.image</field>
+    <record id="view_form_omb_demo" model="ir.ui.view">
+        <field name="name">omb.demo</field>
+        <field name="model">omb.demo</field>
         <field name="arch" type="xml">
             <form string="Medical Image">
                 <header>
@@ -11,59 +10,54 @@
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="code" readonly="1"/>
+                            <field name="name" readonly="1"/>
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id" options='{"no_create": 1, "no_open": 1}' required="1" domain="[('patient_ok', '=', 'True')]"/>
-                            <field name="treatment_id" options='{"no_create": 1, "no_open": 1}'/>
-                        </group>
-                        <group>
-                            <field name="name"/>
-                            <field name="user_id" readonly="1"/>
-                            <field name="create_date" readonly="1"/>
+                               <field name="code"/>
+                               <field name="description"/>
+                               <field name="amount"/>
+                            
                         </group>
                     </group>
-                    <notebook>
-                        <page string="Attachments">
-                                <field name="list_attachment_ids" nolabel="1">
-                                    <tree editable="bottom">
-                                        <field name="file_name" invisible="1"/>
-                                        <field name="file" filename="file_name"/>
-                                        <field name="date" readonly="1"/>
-                                        <field name="user_id" readonly="1" sum="T"/>
-                                    </tree>
-                                </field>
-                        </page>
-                    </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
             </form>
         </field>
     </record>
 
-    <record id="view_tree_sis_medical_imagen" model="ir.ui.view">
-        <field name="name">view.tree.sis.medical.imagen</field>
-        <field name="model">medical.image</field>
+    <record id="view_tree_omb_demo" model="ir.ui.view">
+        <field name="name">view.tree.omb.demo</field>
+        <field name="model">omb.demo</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="code"/>
-                <field name="name"/>
-                <field name="partner_id"/>
-                <field name="treatment_id"/>
-            </tree>
+                    <tree>
+                            <field name="name"/>
+                               <field name="code"/>
+                               <field name="description"/>
+                               <field name="amount"/>
+                            
+                    </tree>
         </field>
     </record>
 
-    <record id="action_sis_medical_image" model="ir.actions.act_window">
-        <field name="name">Medical Images</field>
-        <field name="res_model">medical.image</field>
+    <record id="action_omb_demo" model="ir.actions.act_window">
+        <field name="name">omb_demo</field>
+        <field name="res_model">omb.demo</field>
         <field name="view_mode">tree,form</field>
     </record>
+
+    <menuitem id="root_menu_omb_demo"
+            name="demo"
+            web_icon="board,static/description/icon.png"
+            sequence="10"
+        />
+
+    <menuitem id="root_menu_omb_demo_son"
+        name="demo"
+        parent="root_menu_omb_demo"
+        action="action_omb_demo"
+        sequence="10"
+    />
 
 
 </odoo>
