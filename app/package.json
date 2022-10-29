@@ -1,0 +1,26 @@
+{
+  "name": "omb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electronjs-spain/youtube-markdown.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/electronjs-spain/youtube-markdown/issues"
+  },
+  "homepage": "https://github.com/electronjs-spain/youtube-markdown#readme",
+  "devDependencies": {
+    "electron": "^21.2.0"
+  },
+  "dependencies": {
+    "marked": "^4.1.1"
+  }
+}
