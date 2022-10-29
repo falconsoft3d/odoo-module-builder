@@ -9,6 +9,7 @@ btnCreate.addEventListener('click', () => {
     if (!(txtName.value == '' || txtFields.value == '' || selectVersion.value == '')) {
         let name = txtName.value;
         let omb_name = 'omb_' + txtName.value;
+        let omb_p_name = 'omb.' + txtName.value;
         let fields = txtFields.value.split(',');
         console.log(txtName.value);
         console.log(txtFields.value);
@@ -72,9 +73,9 @@ access_medical_consultation,medical.consultation,model_medical_consultation,,1,1
 modelInfo = `# -*- coding: utf-8 -*-
 from odoo import api, fields, models, _, tools
 
-class InternalPatientIn(models.Model):
-    _name = 'internal.patient.in'
-    _description = 'Internal Patient In'
+class ${omb_name}(models.Model):
+    _name = '${omb_p_name}'
+    _description = '${omb_name}'
     _order = 'id desc'
 
     name = fields.Char('Reference', required=True, default='New')
@@ -86,7 +87,7 @@ class InternalPatientIn(models.Model):
         seq_obj = self.env['ir.sequence']
         for vals in vals_list:
             if vals.get('name', 'New') == 'New':
-                vals['name'] = seq_obj.next_by_code('internal.patient.in') or 'New'
+                vals['name'] = seq_obj.next_by_code('${omb_p_name}') or 'New'
         return super().create(vals_list)`
 
 ViewInfo = `
