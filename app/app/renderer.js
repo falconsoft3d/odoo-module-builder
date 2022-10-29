@@ -16,7 +16,7 @@ btnCreate.addEventListener('click', () => {
         try {
             const fse = require('fs-extra')
             
-            manifest = `##############################################################################
+manifest = `##############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    This module copyright (C) 2018 odoo-module-builder
@@ -55,7 +55,7 @@ btnCreate.addEventListener('click', () => {
     ],
     'images': ['static/description/banner.jpg'],
 }`
-        ir_sequence = `<?xml version="1.0" encoding="utf-8"?>
+ir_sequence = `<?xml version="1.0" encoding="utf-8"?>
     <odoo noupdate="1">
     <record id="seq_partner_out" model="ir.sequence">
         <field name="name">Partner Out</field>
@@ -66,12 +66,105 @@ btnCreate.addEventListener('click', () => {
     </record>
 </odoo>`
 
-        security = `id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+security = `id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_medical_consultation,medical.consultation,model_medical_consultation,,1,1,1,1`
+
+modelInfo = `# -*- coding: utf-8 -*-
+from odoo import api, fields, models, _, tools
+
+class InternalPatientIn(models.Model):
+    _name = 'internal.patient.in'
+    _description = 'Internal Patient In'
+    _order = 'id desc'
+
+    name = fields.Char('Reference', required=True, default='New')
+    partner_id = fields.Many2one('res.partner', 'Patient', tracking=True)
+    user_id = fields.Many2one('res.users', string='Responsible', tracking=True, default=lambda self: self.env.user)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        seq_obj = self.env['ir.sequence']
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = seq_obj.next_by_code('internal.patient.in') or 'New'
+        return super().create(vals_list)`
+
+ViewInfo = `
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_form_partner_sis_medical_imagen" model="ir.ui.view">
+        <field name="name">view.form.sis.medical.imagen</field>
+        <field name="model">medical.image</field>
+        <field name="arch" type="xml">
+            <form string="Medical Image">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" options='{"no_create": 1, "no_open": 1}' required="1" domain="[('patient_ok', '=', 'True')]"/>
+                            <field name="treatment_id" options='{"no_create": 1, "no_open": 1}'/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="create_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Attachments">
+                                <field name="list_attachment_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="file_name" invisible="1"/>
+                                        <field name="file" filename="file_name"/>
+                                        <field name="date" readonly="1"/>
+                                        <field name="user_id" readonly="1" sum="T"/>
+                                    </tree>
+                                </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_sis_medical_imagen" model="ir.ui.view">
+        <field name="name">view.tree.sis.medical.imagen</field>
+        <field name="model">medical.image</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="treatment_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_sis_medical_image" model="ir.actions.act_window">
+        <field name="name">Medical Images</field>
+        <field name="res_model">medical.image</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>
+`;
 
         fse.outputFileSync(omb_name+'/__manifest__.py', manifest)
         fse.outputFileSync(omb_name+'/__init__.py', 'from . import models')
         fse.outputFileSync(omb_name+'/models/__init__.py', 'from . import '+omb_name)
+        fse.outputFileSync(omb_name+'/models/'+omb_name+'.py', modelInfo)
+        fse.outputFileSync(omb_name+'/views/'+omb_name+'_views.xml', ViewInfo)
         fse.outputFileSync(omb_name+'/security/ir.model.access.csv', security)
         fse.outputFileSync(omb_name+'/data/ir_sequence.xml', ir_sequence)
         alert('Module created successfully');
