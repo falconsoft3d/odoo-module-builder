@@ -13,9 +13,14 @@ Marlon Falcón Hernández | Valencia, España
 - Github: https://github.com/falconsoft3d
 - linkedin: https://linkedin.com/in/marlon-falcón-3a2aa9a4
 
-# Run APP
+# commands for APP
 ````
 cd app
 npm i
 npm start
+
+electron-builder -mwl
+electron-builder --mac
+electron-builder --win
+electron-builder --linux
 ````
