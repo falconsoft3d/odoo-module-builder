@@ -19,6 +19,21 @@
 #
 ##############################################################################
 
-
-
-
+{
+    'name': 'SIS 20 MFH',
+    'version': '16.0.1.0.0',
+    'author': 'Ynext SpA',
+    'maintainer': 'Ynext SpA',
+    'website': 'http://www.ynext.cl',
+    'license': 'AGPL-3',
+    'category': 'Extra Tools',
+    'summary': 'SIS 20. Medical System.',
+    'depends': ['base','mail','stock','calendar','crm'],
+    'data': [
+        'security/ir.model.access.csv',
+        'security/sis_base_security.xml',
+        'data/ir_sequence.xml',
+        'views/res_partner_view.xml',
+    ],
+    'images': ['static/description/banner.jpg'],
+}
