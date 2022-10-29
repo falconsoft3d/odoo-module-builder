@@ -1,4 +1,8 @@
 # Odoo Module Builder
+It is an open source application to generate odoo code, simplifying the development process.
+
+# Link
+https://falconsoft3d.github.io/odoo-module-builder/
 
 Marlon Falcón Hernández | Valencia, España
 - ERP, CRM y Software
