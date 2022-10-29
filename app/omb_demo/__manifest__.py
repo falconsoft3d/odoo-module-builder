@@ -20,20 +20,19 @@
 ##############################################################################
 
 {
-    'name': 'SIS 20 MFH',
+    'name': 'demo OMB',
     'version': '16.0.1.0.0',
-    'author': 'Ynext SpA',
-    'maintainer': 'Ynext SpA',
-    'website': 'http://www.ynext.cl',
+    'author': 'OMB',
+    'maintainer': 'OMB',
+    'website': 'https://falconsoft3d.github.io/odoo-module-builder/',
     'license': 'AGPL-3',
     'category': 'Extra Tools',
-    'summary': 'SIS 20. Medical System.',
-    'depends': ['base','mail','stock','calendar','crm'],
+    'summary': 'Other module of the OMB',
+    'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
         'security/sis_base_security.xml',
         'data/ir_sequence.xml',
         'views/res_partner_view.xml',
     ],
-    'images': ['static/description/banner.jpg'],
 }
