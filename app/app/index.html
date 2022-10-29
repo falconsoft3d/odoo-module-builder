@@ -5,12 +5,102 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OMB 1.0</title>
-
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-        <section class="content">
-           <h1>Demo</h1>
+        <section class="content m-2">
+            <div class="lg:text-center mb-4">
+                <p class="mt-2 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-3xl">OMB - Odoo Module Builder V.1.0</p>
+                <p class="max-w-2xl text-l text-gray-500 lg:mx-auto">By Marlon Falcón Hernandez | mfalconsoft@gmail.com</p>
+              </div>
+
+            <form class="w-full max-w-lg">
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                      Name Module
+                    </label>
+                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                    id="grid-first-name" type="text" value="demo">
+                    <p class="text-gray-600 text-xs italic">Name of the module.</p>
+                  </div>
+
+                  <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                      Version
+                    </label>
+                    <div class="relative">
+                      <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                        <option>16.0</option>
+                        <option>15.0</option>
+                      </select>
+                      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                
+
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                      Fields
+                    </label>
+                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                            id="grid-password" type="text" value="name,description">
+                    <p class="text-gray-600 text-xs italic">fields</p>
+                  </div>
+                </div>
+                
+                <div>
+                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                        <span>Create Module</span>
+                    </button>
+
+                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                        <span>Download CSV</span>
+                    </button>
+                </div>
+
+                <div class="my-2">
+                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                        <span>Add Field</span>
+                    </button>
+
+                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                        <span>Hide Field</span>
+                    </button>
+                </div>
+
+                <div class="my-2">
+                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                        <span>Wizard</span>
+                    </button>
+
+                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                        <span>Report</span>
+                    </button>
+                </div>
+
+                  <!--
+                  <label><input type="checkbox" id="cbox1" value="first_checkbox"> Este es mi primer checkbox</label><br>
+                  -->
+
+              </form>
+
+
+
+              
         </section>
 </body>
 
